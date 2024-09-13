@@ -1,0 +1,232 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }} - Spice-EX</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+       <!-- Vendor Script -->
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+       <!-- Inline Styles for Smooth Scrolling -->
+    <style>
+       body {
+          cursor: url("{% static 'images/cursor.png' %}"), auto; 
+      }     
+   
+    </style>
+</head>
+  <body class="goto-here" style="background-image: url('{% static 'images/bg_4.jpg' %}'); ">
+    <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=Hello!%20I%20need%20help%20with%20..." 
+   class="whatsapp-icon" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    </a>
+
+		<!-- <div class="py-1 bg-primary">
+            <div class="container">
+                <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+                    <div class="col-lg-12 d-block">
+                        <div class="row d-flex">
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                                <span class="text">+ 1235 2355 98</span>
+                            </div>
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                                <span class="text">youremail@email.com</span>
+                            </div>
+                            <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                                <span class="text">3-5 Business days delivery &amp; Free Returns</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    <nav class="navbar navbar-expand-lg  ftco_navbar ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{% url 'store:home' %}">
+          {% if site_info.logo %}
+              <img src="{{ site_info.logo.url }}" alt="{{ site_info.site_name }}" style="max-height: 50px;">
+          {% else %}
+              {{ site_info.site_name }}
+              <p>SPICE-EX</p>
+          {% endif %}
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span>
+    </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+              {% for category in categories %}
+                  {% if category.is_featured %}
+                      <li class="nav-item">
+                          <a href="{{ category.get_absolute_url }}" class="nav-link">{{ category.name }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+              <li class="nav-item"><a href="{% url 'store:about' %}" class="nav-link">About</a></li>
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+      </div>
+      
+	    </div>
+	  </nav>
+    <!-- END nav -->
+
+    <!-- START content -->
+    {% block content %}
+
+
+
+
+
+
+
+
+
+    {% endblock %}
+
+    <!-- END content -->
+
+    <div class="container horizondal-line"></div>
+
+    <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="mouse">
+                          <a href="#" class="mouse-icon">
+                              <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+                          </a>
+                      </div>
+            </div>
+          <div class="row">
+            <div class="footer-contact col-md-4">
+              {% if site_info %}
+              <h2>{{ site_info.site_name }}</h2>
+              <p>
+                  {{ site_info.addresses.first.address|linebreaksbr }} <!-- This will break the address into multiple lines -->
+              </p>
+              {% endif %}
+          
+              <ul class="contact-list" style="list-style: none; padding-left: 0; margin-top: 20px;">
+                  <!-- WhatsApp -->
+                  {% if whatsapp_number %}
+                  <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                      <span style="font-size: 20px; color: #25D366; margin-right: 8px;">
+                          <i class="fab fa-whatsapp"></i>
+                      </span>
+                      <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}" style="color: #ffffff; text-decoration: none;">
+                          {{ whatsapp_number.whatsapp_phone_number }}
+                      </a>
+                  </li>
+                  {% endif %}
+          
+                  <!-- Phone Numbers -->
+                  {% for phone_number in phone_numbers %}
+                  <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                      <span style="font-size: 20px; color: #ffffff; margin-right: 8px;">
+                          <i class="fa fa-phone"></i>
+                      </span>
+                      <a href="tel:{{ phone_number.phone_number }}" style="color: #ffffff; text-decoration: none;">
+                          {{ phone_number.phone_number }}
+                      </a>
+                  </li>
+                  {% endfor %}
+          
+                  <!-- Emails -->
+                  {% for email in emails %}
+                  <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                      <span style="font-size: 20px; color: #ffffff; margin-right: 8px;">
+                          <i class="fa fa-envelope"></i>
+                      </span>
+                      <a href="mailto:{{ email.email }}" style="color: #ffffff; text-decoration: none;">
+                          {{ email.email }}
+                      </a>
+                  </li>
+                  {% endfor %}
+              </ul>
+          
+              <!-- Social Links -->
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                  {% for social_link in social_links %}
+                  <li class="ftco-animate" style="display: inline-block; margin-right: 10px;">
+                      <a href="{{ social_link.url }}" style="color: #ffffff;">
+                          <span class="icon-{{ social_link.name }}"></span>
+                      </a>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+          
+
+            
+            {% comment %} <div class="col-md-4">
+               <div class="ftco-footer-widget mb-4">
+                <h2 class="ftco-heading-2">Help</h2>
+                <div class="d-flex">
+                    <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
+                      <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
+                      <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
+                      <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
+                      <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div> {% endcomment %}
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <p>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | SPICE-EX 
+                </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+  
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'js/scrollax.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+      
+    </body>
+  </html>

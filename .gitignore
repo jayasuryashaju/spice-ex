@@ -1,0 +1,35 @@
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore Virtual Environment directory
+.venv/
+venv/
+
+# Ignore Media Uploads
+media/
+
+# Ignore SQLite Database (if used locally)
+*.sqlite3
+
+# Ignore environment variables file
+.env
+
+# Ignore any logs or temporary files
+*.log
+*.bak
+*.swp
+.DS_Store
+
+# Ignore IDE-specific files (optional)
+.vscode/
+.idea/
+
+# Ignore any local settings or configuration files
+settings_local.py
+
+# Ignore pytest cache and coverage reports
+.pytest_cache/
+htmlcov/
+coverage.xml

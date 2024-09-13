@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-5 text-center">
+                <ul class="product-category">
+                    <li><a href="{% url 'store:category_all' %}" class="{% if not category %}active{% endif %}">All</a></li>
+                    {% for cat in categories %}
+                        <li><a href="{% url 'store:category_list' cat.slug %}" class="{% if cat == category %}active{% endif %}">{{ cat.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            {% if products %}
+                {% for product in products %}
+                    <div class="col-md-6 col-lg-3 ftco-animate mb-4">
+                        <div class="product">
+                            <a href="{{ product.get_absolute_url }}" class="img-prod">
+                                <img class="img-fluid" src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                                {% if product.has_offer %}
+                                    <span class="status">Special Offer</span>
+                                {% endif %}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price">
+                                            {% if product.offer_price %}
+                                                <span class="mr-2 price-dc">${{ product.price }}</span>
+                                                <span class="price-sale">${{ product.offer_price }}</span>
+                                            {% else %}
+                                                <span>${{ product.price }}</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col text-center">
+                    <p>No products to display</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        {% if products %}
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                            <li class="{% if page_obj.number == num %}active{% endif %}"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+
+
+{% endblock %}

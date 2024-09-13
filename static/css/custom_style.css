@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,800&display=swap');
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    background-color: #f5f5f5; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 8px; /* Rounded edges for a Material Design look */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    transition: background-color 0.3s ease; /* Smooth color transition on hover */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker thumb color on hover */
+}
+
+/* Custom scrollbar for Firefox */
+* {
+    scrollbar-width: thin; /* Make the scrollbar thinner */
+    scrollbar-color: #888 #f5f5f5; /* Set thumb and track colors */
+}
+
+/* Custom scrollbar for Internet Explorer 10+ */
+body {
+    -ms-overflow-style: -ms-autohiding-scrollbar; /* Auto-hiding scrollbar for IE */
+}
+
+/* Optional: Add a subtle animation to scrollbar appearance */
+::-webkit-scrollbar-thumb {
+    animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+:root {
+    --cardamom-primary: #ED8524;  /* Vivid Orange */
+    --cardamom-secondary: #d2691e;  /* Chocolate */
+    --cardamom-accent: #f0c987;  /* Light Orange */
+    --cardamom-text: #3d3d3d;  /* Dark Gray */
+}
+
+
+.bdy {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    
+}
+.container-p {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.5); /* White with 90% opacity */
+    margin: 20px;
+    border-radius: 15px;
+}
+
+
+.container-p .imgBx {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+    background: var(--cardamom-secondary);
+    transition: .3s linear;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    
+}
+
+
+
+
+.container-p .imgBx:before {
+    content: 'Spice-EX';
+    position: absolute;
+    top: 0px;
+    left: 24px;
+    color: #000;
+    opacity: 0.2;
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.container-p .imgBx img {
+    position: relative;
+    top: 20px;
+    width: 700px;
+    transition: .9s linear;
+}
+
+.container-p .details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.container-p .details h2{
+    margin: 0;
+    padding: 0;
+    font-size: 2.4em;
+    line-height: 1em;
+    color: #444;
+}
+
+.container-p .details h2 span {
+    font-size: 0.4em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+}
+
+.container-p .details p {
+    max-width: 85%;
+    margin-left: 15%;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 36px;
+}
+
+.container-p .details h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 2.5em;
+    color: #a2a2a2;
+    float: left;
+}
+.container-p .details button {
+    background: var(--cardamom-secondary);
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    margin-top: 5px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 40px;
+    float: right;
+}
+
+.product-colors{
+    border-radius: 15px;
+}
+
+.product-colors span {
+    width: 50px; /* Increased the size for better visibility */
+    height: 50px;
+    top: 7px;
+    margin-right: 12px;
+    left: 10px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    background-size: cover; /* Ensures the image covers the entire circle */
+    background-position: center; /* Centers the image in the circle */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    border: 2px solid #fff; /* Adds a white border for better visibility */
+}
+
+.product-colors .active:after {
+    content: "";
+    width: 60px; /* Adjusted to match the new size */
+    height: 60px;
+    border: 2px solid #000;
+    position: absolute;
+    border-radius: 50%;
+    box-sizing: border-box;
+    left: -5px;
+    top: -5px;
+}
+
+
+/* responsive */
+@media (max-width: 1080px) {
+    .container-p {
+        height: auto;
+    }
+    .container-p .imgBx {
+        padding: 40px;
+        box-sizing: border-box;
+        width: 100% !important;
+        height: auto;
+        text-align: center;
+        overflow: hidden;
+    }
+    .container-p .imgBx img {
+        left: initial;
+        max-width: 100%;
+        transform: rotate(0deg);
+    }
+    .details {
+        width: 100% !important;
+        height: auto;
+        padding: 20px;
+    }
+    .container-p .details p {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
+
+footer {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+footer .row{
+    padding-bottom: 0 !important;
+    padding-top: 25px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+ }
+ 
+
+
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+/* product detasilsd */
+
+
+
+.horizondal-line {
+    width: 100%; /* or a specific width like '50%' */
+    height: 1px; /* thickness of the line */
+    background-color: var(--cardamom-primary); /* color of the line */
+    margin: 20px 0; /* space above and below the line */
+    border: none; /* remove any borders */
+}
+
+.product-main {
+    background-color: rgba(255, 255, 255, 0.3); /* translucent white */
+    margin:20px;
+    border-radius: 50px; /* adjust the value for more or less rounded corners */
+    padding: 8px 15px; /* 8px top and bottom, 15px left and right */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* optional: adds a subtle shadow */
+}
+
+
+.btn-black {
+    background-color: #128C7E !important; 
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: 75%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.btn-black:hover {
+    background-color: #0ca694 !important; /* Darker WhatsApp color on hover */
+}
+
+.btn-black i {
+    color: white; /* Icon color */
+    margin-right: 8px; /* Space between icon and text */
+}
+
+
+
+
+
+/* floating icon */
+
+
+.whatsapp-icon {
+    position: fixed;
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    background-color: #25D366; /* WhatsApp green */
+    color: white; /* Icon color */
+    border-radius: 50%; /* This makes it round */
+    width: 60px; /* Fixed width for circle */
+    height: 60px; /* Fixed height for circle */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 30px; /* Adjust size as needed */
+    text-align: center;
+    line-height: 60px; /* Center the icon vertically */
+    z-index: 1000; /* Ensure it appears above other elements */
+    transition: background-color 0.3s;
+}
+
+.whatsapp-icon:hover {
+    background-color: #128C7E; /* Darker green on hover */
+}
+    
+
+
+
+
+
+/* footwer */
+
+.footer-contact h2 {
+    color: var(--cardamom-primary); /* White text for better visibility */
+}
+
+.footer-contact p, .footer-contact li span {
+    color: #ffff; /* White text for better visibility */
+}
+
+.footer-contact p {
+    margin-bottom: 10px; /* Space out the address lines */
+}
+
+.contact-list li {
+    margin-bottom: 10px; /* Add spacing between list items */
+}
+
+
+

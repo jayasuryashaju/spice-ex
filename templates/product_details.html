@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="hero-wrap hero-bread">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-left  mb-4 ">
+            <p class="breadcrumbs">
+                <span class="mr-2">
+                    <a href="{% url 'store:home' %}">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+                <span class="mr-2">
+                    <a href="{% url 'store:category_list' slug=product.category.slug %}">{{ product.category }}</a>
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+                <span>{{ product.name }}</span>
+            </p>
+            
+    </div>
+</div>
+
+<div class="container horizondal-line">
+
+</div>
+
+<section class="ftco-section product-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6  ftco-animate product-image">
+                <a href="{{ product.images.all.0.image.url }}" class="image-popup"><img src="{{ product.images.all.0.image.url }}" class="img-fluid" alt="{{ product.images.all.0.alt_text }}"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>{{ product.name }}</h3>
+                <p class="price"><span>${{ product.price }}</span></p>
+                <p>{{ product.description }}</p>
+                <p>{{ product.additional_description }}</p>
+                <div class="row mt-4">
+                    <!-- Quantity and Add to Cart Section -->
+                </div>
+                <p>
+                    <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=I'm%20interested%20in%20buying%20this%20product" 
+                       class="btn btn-black py-3 px-5 whatsapp-button" 
+                       style="display: flex; align-items: center; color: #ffffff;">
+                        <span class="whatsapp-icon-button">
+                            <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
+                        </span>
+                        Buy it on WhatsApp
+                    </a>
+                </p>
+                
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container horizondal-line">
+
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Related Products</h2>
+               
+            </div>
+        </div>   		
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for related_product in related_products %}
+            <div class="col-md-6 col-lg-3 ftco-animate "  >
+                <div class="product" style=" border: none;">
+                    <a href="{{ related_product.get_absolute_url }}" class="img-prod">
+                        <img class="img-fluid" src="{{ related_product.images.all.0.image.url }}" alt="{{ related_product.images.all.0.alt_text }}">
+                        {% if related_product.has_offer %}
+                        <span class="status">Offer</span>
+                        {% endif %}
+                        <div class="overlay"></div>
+                    </a>
+                    <div class="text py-3 pb-4 px-3 text-center">
+                        <h3><a href="{{ related_product.get_absolute_url }}">{{ related_product.name }}</a></h3>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price">
+                                    {% if related_product.offer_price %}
+                                    <span class="mr-2 price-dc">${{ related_product.price }}</span>
+                                    <span class="price-sale">${{ related_product.offer_price }}</span>
+                                    {% else %}
+                                    <span>${{ related_product.price }}</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

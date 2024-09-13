@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- START banner -->
+    <section id="home-section_b" class="hero">
+        {% if banners %}
+        <div id="homeBannerCarousel" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="false">
+            <!-- Carousel Indicators (Bubbles) -->
+            <ol class="carousel-indicators">
+                {% for banner in banners %}
+                <li data-target="#homeBannerCarousel" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                {% endfor %}
+            </ol>
+
+            <div class="carousel-inner">
+                {% for banner in banners %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}" style="position: relative; width: 100vw; height: 100vh;">
+                    <!-- Background Image with Zoom Animation -->
+                    <div class="carousel-bg" style="background-image: url('{{ banner.background_image.url }}');"></div>
+                    <div class="overlay" style="opacity: {{ banner.overlay_opacity }}; background-color: rgba(0, 0, 0, 0.5);"></div>
+                    <div class="gradient-overlay"></div>
+                    <div class="container-fluid h-100 d-flex align-items-center">
+                        <div class="row w-100 h-100">
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="text-white ftco-animate">
+                                    <h1 class="font-weight-bold text-left banner-title">{{ banner.title }}</h1>
+                                    <h2 class="subheading mb-4 text-left banner-subheading">{{ banner.subheading }}</h2>
+                                    <p class="lead text-left banner-description">{{ banner.description }}</p>
+                                    <a href="{{ banner.button_link }}" class="banner-btn">{{ banner.button_text }}</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div> <!-- Empty right side -->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+
+<!-- END banner -->
+
+
+
+<!-- testing section -->
+
+
+{% comment %} <section class="bdy">
+    <div class="container-p ">
+        <div class="imgBx">
+            <!-- Main product image -->
+            <img src="{{ products.first.images.first.image.url }}" alt="{{ products.first.name }}" id="main-product-image">
+        </div>
+        <div class="details">
+            <div class="content">
+                <!-- Main product name -->
+                <h2 id="product-name">{{ products.first.name }} <br>
+                </h2>
+                <h2>
+                    <span id="product-category">{{ products.first.category }}</span>
+                </h2>
+                
+
+                <!-- Main product description -->
+                <p id="product-description">
+                    {{ products.first.description }}
+                </p>
+                <p class="product-colors">Available Colors:
+                    <!-- Loop through all products to display color options -->
+                    {% for product in products %}
+                        <span class="color-option {% if forloop.first %}active{% endif %}" 
+                              style="background-image: url('{{ product.images.first.image.url }}');"
+                              data-pic="{{ product.images.first.image.url }}"
+                              data-name="{{ product.name }}"
+                              data-description="{{ product.description }}"
+                              data-category="{{ product.category }}">
+                        </span>
+                    {% endfor %}
+                </p>
+                <h3 id="product-price">Rs. {{ products.first.price }}</h3>
+                <button>Buy Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // JavaScript to handle product detail update on color option click
+    $(".product-colors span").click(function() {
+        // Remove the active class from all color options
+        $(".product-colors span").removeClass("active");
+        // Add the active class to the clicked color option
+        $(this).addClass("active");
+        
+        // Update the main product image, name, description, and category
+        $("#main-product-image").attr('src', $(this).attr("data-pic"));
+        $("#product-name").text($(this).attr("data-name"));
+        $("#product-description").text($(this).attr("data-description"));
+        $("#product-category").text($(this).attr("data-category"));
+    });
+</script>
+ {% endcomment %}
+
+ 
+
+<!-- end testing -->
+
+
+
+
+<!-- start about us -->
+
+<section class="specialities-section py-5">
+    <div class="container">
+        <div class="about-content">
+            <h2 class="mb-4">About SPICE-EX</h2>
+            <p>
+                {{ about.description }}
+            </p>
+            <h3 class="mb-4">Our Specialities</h3>
+            <div class="speciality-items-wrapper">
+                {% for speciality in specialities %}
+                    <div class="speciality-item">
+                        {% if speciality.image %}
+                            <img src="{{ speciality.image.url }}" alt="{{ speciality.title }}">
+                        {% else %}
+                            <img src="{% static 'images/farmer_2.jpg' %}" alt="{{ speciality.title }}">
+                        {% endif %}
+                        <h4>{{ speciality.title }}</h4>
+                        <p>{{ speciality.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'store:about' %}" class="read-more-btn">Read More</a>
+        </div>
+    </div>
+</section>
+
+    
+
+    <!-- end about us -->
+
+
+
+
+    <!-- START products -->
+
+    <section class="ftco-section" >
+        <div class="container" >
+                <div class="row justify-content-center mb-3 pb-3">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+            <h2 class="mb-4">Featured Products</h2>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+        </div>
+        </div>   		
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-6 col-lg-3 ftco-animate" >
+                        <div class="product" style=" border: none;">
+                            <a href="{{ product.get_absolute_url }}" class="img-prod">
+                                {% if product.images.first %}
+                                    <img class="img-fluid" src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                                {% else %}
+                                    <img class="img-fluid" src="{% static 'images/c1.jpg' %}" alt="{{ product.name }}">
+                                {% endif %}
+                                {% if product.has_offer %}
+                                <span class="status">Offer</span>
+                                {% endif %}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center" style="background-color: rgba(255, 255, 255, 0.5);">
+                                <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price">
+                                            {% if product.has_offer %}
+                                                <span class="mr-2 price-dc">₹{{ product.price }}</span>
+                                                <span class="price-sale">₹{{ product.offer_price }}</span>
+                                            {% else %}
+                                                <span class="price-regular">₹{{ product.price }}</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- END products -->
+
+
+<!-- START categories -->
+<section>
+    <div class="products-section">
+        <h2>Our Products</h2>
+        <div class="products-container">
+            {% for category in categories %}
+                <div class="product-card">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% else %}
+                        <img src="{% static 'images/c1.jpg' %}" alt="{{ category.name }}">
+                    {% endif %}
+                    <div class="product-info">
+                        <h3>{{ category.name }}</h3>
+                        <a href="{{ category.get_absolute_url }}" class="explore-btn">
+                            Explore Products <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+    
+ 
+
+
+
+
+    <!-- END categories -->
+
+
+
+
+
+
+    <!-- Grades Section -->
+    <section class="grades-section p-4" >
+        <div class="container-fluid grades-container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-section">
+                    <h2 class="grades-title">Our Grades</h2>
+                    <p class="grades-subtitle">We grade and sort to ensure the best size, color, and aroma quality.</p>
+                    <a href="{% url 'store:about' %}" class="learn-more-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                    <div class="cardamom-sizes d-flex justify-content-around mt-4">
+                        <div class="cardamom-size">
+                            <img src="{% static 'images/cardomom.png' %}" alt="6.5 mm Cardamom" class="img-fluid" style="width: 55px;">
+                            <p class="size-label">6.5 mm</p>
+                        </div>
+                        <div class="cardamom-size">
+                            <img src="{% static 'images/cardomom.png' %}" alt="7 mm Cardamom" class="img-fluid" style="width: 60px;">
+                            <p class="size-label">7 mm</p>
+                        </div>
+                        <div class="cardamom-size">
+                            <img src="{% static 'images/cardomom.png' %}" alt="7.5 mm Cardamom" class="img-fluid" style="width: 65px;">
+                            <p class="size-label">7.5 mm</p>
+                        </div>
+                        <div class="cardamom-size">
+                            <img src="{% static 'images/cardomom.png' %}" alt="8 mm Cardamom" class="img-fluid" style="width: 70px;">
+                            <p class="size-label">8 mm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 video-section">
+                    <iframe width="100%" height="300rem" src="https://www.youtube.com/embed/Fwegws59gfo" title="Cardamom Grading and Sorting | MAS Spices | India | Spices | Arabic" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grades Section  END-->
+ 
+  
+
+    
+
+
+
+
+    <!-- Awards Section -->
+    <!-- <section class="awards-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Awards</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="static/images/c1.jpg" class="card-img-top" alt="Dummy Image">
+                        <div class="card-body">
+                            <h5 class="card-title">NIF Award</h5>
+                            <p class="card-text">Our farm-developed Punnathanam nutmeg won the prestigious 8th National Innovation Foundation award in 2015, presented by former President of India Sri Pranab Mukherjee.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="static/images/c1.jpg" class="card-img-top" alt="Dummy Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Best Nutmeg Variety Award</h5>
+                            <p class="card-text">We received the Best Nutmeg Variety Award from Kerala Agricultural University in 2017.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+
+
+      <!-- Find Us Start -->
+    <hr>
+    <section class="find-us-section">
+        <div class="container heading-section text-center">
+            <h2 class="m-4">{{ location.name }}</h2>
+            <div class="map-container">
+                {{ location.iframe_code|safe }}
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- Find Us Start -->
+    <hr>
+
+
+    <!-- contact form start -->
+
+    <section class="enquiry-section m-4" style="background-image: url('{% static "images/green.jpg" %}');">
+        <div class="enquiry-container">
+            <div class="enquiry-content">
+                <h2 class="enquiry-title">For Enquiries<br>Reach out to us.</h2>
+                <form id="enquiryForm" class="enquiry-form">
+                    <input type="text" name="name" id="name" placeholder="Name" class="enquiry-input" required>
+                    <input type="tel" name="phone" id="phone" placeholder="Phone Number" class="enquiry-input" required>
+                    <button type="submit" class="enquiry-button">Contact us now</button>
+                </form>
+                <div class="enquiry-contact">
+                    {% for phone_number in phone_numbers %}
+                        <p><i class="fa fa-phone"></i> {{ phone_number.phone_number }}</p>
+                    {% endfor %}
+                    
+                    {% for email in emails %}
+                        <p class="ml-5"><i class="fa fa-envelope"></i> {{ email.email }}</p>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.getElementById('enquiryForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Get the values from the input fields
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+    
+            // Construct the WhatsApp message
+            var message = `Hello! My name is ${name} and my phone number is ${phone}. I would like to make an enquiry.`;
+    
+            // Construct the WhatsApp URL with the message
+            var whatsappUrl = `https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=${encodeURIComponent(message)}`;
+    
+            // Redirect the user to WhatsApp
+            window.location.href = whatsappUrl;
+        });
+    </script>
+    
+    <!-- END newsletter -->
+
+
+
+
+<script>
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var name = document.getElementById('name');
+        var email = document.getElementById('email');
+        var message = document.getElementById('message');
+        
+        if (!name.checkValidity()) {
+            name.classList.add('is-invalid');
+        } else {
+            name.classList.remove('is-invalid');
+        }
+    
+        if (!email.checkValidity()) {
+            email.classList.add('is-invalid');
+        } else {
+            email.classList.remove('is-invalid');
+        }
+    
+        if (!message.checkValidity()) {
+            message.classList.add('is-invalid');
+        } else {
+            message.classList.remove('is-invalid');
+        }
+    
+        if (name.checkValidity() && email.checkValidity() && message.checkValidity()) {
+            alert('Form submitted successfully!');
+            // Perform form submission actions (e.g., AJAX call)
+        }
+    });
+    
+</script>
+
+
+{% endblock %}
