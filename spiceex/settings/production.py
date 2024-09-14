@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in', '13.60.207.190']  
 
