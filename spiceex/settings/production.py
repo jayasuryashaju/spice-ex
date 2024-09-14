@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in']  # Replace with your domain
+ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in', '13.60.207.190']  
 
 # Production database settings
 DATABASES = {
@@ -10,7 +10,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'spiceex_db',
         'USER': 'postgres',
-        'PASSWORD': 'your-dev-password',  
+        'PASSWORD': '9847227810',  
         'HOST': 'localhost',
         'PORT': '5432',
     }
