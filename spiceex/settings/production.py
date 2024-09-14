@@ -9,8 +9,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'spiceex_db',
-        'USER': 'postgres',
-        'PASSWORD': '9847227810',  
+        'USER': 'spiceex',
+        'PASSWORD': '9847227810@Aa',  
         'HOST': 'localhost',
         'PORT': '5432',
     }
