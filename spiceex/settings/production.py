@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in', '13.60.207.190']  
 
@@ -45,4 +45,4 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_HSTS_PRELOAD = False
 SECURE_SSL_REDIRECT = False  # Allow both HTTP and HTTPS
 SESSION_COOKIE_SECURE = False  # Allow cookies over HTTP
-CSRF_COOKIE_SECURE = False      # Allow CSRF cookies over HTT
+CSRF_COOKIE_SECURE = False      # Allow CSRF cookies over HTTP
