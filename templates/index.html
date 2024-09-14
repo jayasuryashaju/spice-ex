@@ -180,13 +180,18 @@
                                     <div class="pricing">
                                         <p class="price">
                                             {% if product.has_offer %}
-                                                <span class="mr-2 price-dc">₹{{ product.price }}</span>
+                                                <span class="mr-2 price-dc" style="text-decoration: line-through; color: gray;">₹{{ product.price }}</span>
                                                 <span class="price-sale">₹{{ product.offer_price }}</span>
                                             {% else %}
-                                                <span class="price-regular">₹{{ product.price }}</span>
+                                                {% if product.price %}
+                                                    <span class="price-regular">₹{{ product.price }}</span>
+                                                {% else %}
+                                                    <span style="color: grey;">Ping Us.</span>
+                                                {% endif %}
                                             {% endif %}
                                         </p>
                                     </div>
+                                    
                                 </div>
                             </div>
 

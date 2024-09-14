@@ -27,33 +27,60 @@
 <section class="ftco-section product-main">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6  ftco-animate product-image">
-                <a href="{{ product.images.all.0.image.url }}" class="image-popup"><img src="{{ product.images.all.0.image.url }}" class="img-fluid" alt="{{ product.images.all.0.alt_text }}"></a>
+            <!-- Product Image Section -->
+            <div class="col-lg-6 ftco-animate product-image">
+                <a href="{{ product.images.all.0.image.url }}" class="image-popup">
+                    <img src="{{ product.images.all.0.image.url }}" class="img-fluid" alt="{{ product.images.all.0.alt_text }}">
+                </a>
             </div>
+
+            <!-- Product Details Section -->
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <!-- Product Name -->
                 <h3>{{ product.name }}</h3>
-                <p class="price"><span>${{ product.price }}</span></p>
+
+                <!-- Price Section -->
+                <p class="price">
+                    {% if product.offer_price %}
+                        <span class="mr-2 price-dc" style="text-decoration: line-through; color: gray;">₹{{ product.price }}</span>
+                        <span class="price-sale">₹{{ product.offer_price }}</span>
+                    {% else %}
+                        {% if product.price %}
+                            <span>₹{{ product.price }}</span>
+                        {% else %}
+                            <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=I'm%20interested%20in%20getting%20a%20quote%20for%20{{ product.name }}" 
+                               style="color: gray;" >
+                               <i class="fa-brands fa-whatsapp" style="margin-right: 10px;"></i>
+                                Get a quote on WhatsApp
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </p>
+
+                <!-- Product Description -->
                 <p>{{ product.description }}</p>
                 <p>{{ product.additional_description }}</p>
+
+                <!-- WhatsApp Buy Button -->
                 <div class="row mt-4">
-                    <!-- Quantity and Add to Cart Section -->
+                    <p >
+                        <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=I'm%20interested%20in%20buying%20this%20product" 
+                        
+                           class="btn btn-black py-3 px-5 whatsapp-button" 
+                           style="display: flex; align-items: center; color: #ffffff; width: 19rem; justify-content: center;">
+                            <span class="whatsapp-icon-button">
+                                <i class="fa-brands fa-whatsapp" style="margin-right: 10px;"></i> 
+                                Buy it on WhatsApp
+                            </span>
+                        </a>
+                    </p>
                 </div>
-                <p>
-                    <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=I'm%20interested%20in%20buying%20this%20product" 
-                       class="btn btn-black py-3 px-5 whatsapp-button" 
-                       style="display: flex; align-items: center; color: #ffffff;">
-                        <span class="whatsapp-icon-button">
-                            <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
-                        </span>
-                        Buy it on WhatsApp
-                    </a>
-                </p>
-                
-                
             </div>
         </div>
     </div>
 </section>
+
+
 
 <div class="container horizondal-line">
 
@@ -86,10 +113,10 @@
                             <div class="pricing">
                                 <p class="price">
                                     {% if related_product.offer_price %}
-                                    <span class="mr-2 price-dc">${{ related_product.price }}</span>
-                                    <span class="price-sale">${{ related_product.offer_price }}</span>
+                                    <span class="mr-2 price-dc">₹{{ related_product.price }}</span>
+                                    <span class="price-sale"> ₹{{ related_product.offer_price }}</span>
                                     {% else %}
-                                    <span>${{ related_product.price }}</span>
+                                    <span>₹{{ related_product.price }}</span>
                                     {% endif %}
                                 </p>
                             </div>

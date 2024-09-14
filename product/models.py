@@ -56,8 +56,8 @@ class Product(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     has_offer = models.BooleanField(default=False)
     offer_details = models.TextField(blank=True, default='')
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # New price field
-    offer_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)  # New offer price field
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  
+    offer_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None) 
     stock = models.PositiveIntegerField(default=0)
 
     class Meta:
