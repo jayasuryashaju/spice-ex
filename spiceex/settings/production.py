@@ -24,9 +24,15 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Security settings
-SECURE_HSTS_SECONDS = 3600  # Force HTTPS
+SECURE_HSTS_SECONDS = 3600  # Force HTTPS (still keep it for better security)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False  # Allow both HTTP and HTTPS
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+
+# Additional settings for handling insecure requests (if necessary)
+if not DEBUG:
+    # Allow both http and https in production, but make sure to only use secure cookies
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
