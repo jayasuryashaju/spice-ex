@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in', '13.60.207.190']  
+ALLOWED_HOSTS = ['spiceex.in', 'www.spiceex.in', '13.60.239.151']  
 
 # Production database settings
 DATABASES = {
