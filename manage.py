@@ -3,7 +3,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'spiceex.settings.production')  # or 'production'
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'spiceex.settings.development')  # or 'production'
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
