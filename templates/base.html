@@ -15,33 +15,35 @@
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-       <!-- Vendor Script -->
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-       <!-- Inline Styles for Smooth Scrolling -->
+
+    <!-- Favicon -->
+    {% if site_info.small_logo %}
+      <link rel="icon" href="{{ site_info.small_logo.url }}" type="image/png">
+    {% else %}
+      <link rel="icon" href="{% static 'images/default_favicon.png' %}" type="image/png">
+    {% endif %}
+
+    <!-- Vendor Script -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- Inline Styles for Smooth Scrolling -->
     <style>
-       body {
-          cursor: url("{% static 'images/cursor.png' %}"), auto; 
-      }     
-   
+      body {
+        cursor: url("{% static 'images/cursor.png' %}"), auto; 
+      }
     </style>
-</head>
+  </head>
+  <!-- Rest of your HTML -->
+
   <body class="goto-here" style="background-image: url('{% static 'images/bg_4.jpg' %}'); ">
     <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=Hello!%20I%20need%20help%20with%20..." 
    class="whatsapp-icon" target="_blank">
