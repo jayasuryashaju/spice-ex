@@ -6,8 +6,11 @@
     <title>{{ title }} - Spice-EX</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
 
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -35,16 +38,74 @@
     <!-- Vendor Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-    <!-- Inline Styles for Smooth Scrolling -->
+    <!-- Service Worker registration -->
+<script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("{% static 'service-worker.js' %}")
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+  
+ <!-- Install Prompt Script -->
+<script>
+    let deferredPrompt;
+  
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      deferredPrompt = e;
+  
+      // Automatically show the install prompt
+      if (deferredPrompt) {
+        deferredPrompt.prompt();  // Show the install prompt
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+          deferredPrompt = null; // Reset the prompt
+        });
+      }
+    });
+  
+    window.addEventListener('appinstalled', (event) => {
+      console.log('App was installed.');
+    });
+  </script>
+  
+
     <style>
       body {
         cursor: url("{% static 'images/cursor.png' %}"), auto; 
+      }
+      #loading-screen {
+        transition: opacity 0.5s ease-out;
+        opacity: 1;
+        visibility: visible;
+      }
+      #loading-screen.hide {
+        opacity: 0;
+        visibility: hidden;
       }
     </style>
   </head>
   <!-- Rest of your HTML -->
 
   <body class="goto-here" style="background-image: url('{% static 'images/bg_4.jpg' %}'); ">
+     <!-- Loading Screen -->
+     <div id="loading-screen" style="position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div class="spinner">
+            <i class="fas fa-spinner fa-spin" style="font-size: 50px; color: #d2691e;"></i>
+        </div>
+    </div>
+
+
     <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}?text=Hello!%20I%20need%20help%20with%20..." 
    class="whatsapp-icon" target="_blank">
     <i class="fab fa-whatsapp"></i>
@@ -229,6 +290,15 @@
     <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
     <script src="{% static 'js/scrollax.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        window.addEventListener('load', function () {
+          // Delay hiding the loading screen for a smoother transition
+          setTimeout(function () {
+            document.getElementById('loading-screen').classList.add('hide');
+          }, 500); // 500ms delay
+        });
+      </script>
+      
       
     </body>
   </html>
