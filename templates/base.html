@@ -50,35 +50,8 @@
     }
   </script>
   
- <!-- Install Prompt Script -->
-<script>
-    let deferredPrompt;
   
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing on mobile
-      e.preventDefault();
-      // Stash the event so it can be triggered later
-      deferredPrompt = e;
-  
-      // Automatically show the install prompt
-      if (deferredPrompt) {
-        deferredPrompt.prompt();  // Show the install prompt
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          } else {
-            console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null; // Reset the prompt
-        });
-      }
-    });
-  
-    window.addEventListener('appinstalled', (event) => {
-      console.log('App was installed.');
-    });
-  </script>
-  
+
 
     <style>
       body {
@@ -98,8 +71,8 @@
   <!-- Rest of your HTML -->
 
   <body class="goto-here" style="background-image: url('{% static 'images/bg_4.jpg' %}'); ">
-     <!-- Loading Screen -->
-     <div id="loading-screen" style="position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <!-- Loading Screen -->
+    <div id="loading-screen" style="position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center;">
         <div class="spinner">
             <i class="fas fa-spinner fa-spin" style="font-size: 50px; color: #d2691e;"></i>
         </div>
@@ -291,14 +264,72 @@
     <script src="{% static 'js/scrollax.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script>
-        window.addEventListener('load', function () {
-          // Delay hiding the loading screen for a smoother transition
-          setTimeout(function () {
-            document.getElementById('loading-screen').classList.add('hide');
-          }, 500); // 500ms delay
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the user has visited the page before
+            const firstVisit = localStorage.getItem('firstVisit');
+
+            if (!firstVisit) {
+                // If it's the first visit, show the loading screen
+                document.getElementById('loading-screen').style.display = 'flex';
+
+                // Set the flag in localStorage so that this doesn't show again
+                localStorage.setItem('firstVisit', 'true');
+            } else {
+                // Hide loading screen immediately if not the first visit
+                document.getElementById('loading-screen').style.display = 'none';
+            }
+
+            // Hide the loading screen after the content has loaded
+            window.addEventListener("load", function() {
+                document.getElementById('loading-screen').style.display = 'none';
+            });
         });
-      </script>
-      
+    </script>
+
+    <script>
+      let deferredPrompt;
+
+      // Function to show the install prompt
+      function showInstallPrompt() {
+          if (deferredPrompt) {
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then((choiceResult) => {
+                  if (choiceResult.outcome === 'accepted') {
+                      console.log('User accepted the install prompt');
+                  } else {
+                      console.log('User dismissed the install prompt');
+                  }
+                  deferredPrompt = null;
+              });
+          }
+      }
+
+      // Listen for the beforeinstallprompt event
+      window.addEventListener('beforeinstallprompt', (e) => {
+          // Prevent the mini-infobar from appearing
+          e.preventDefault();
+          // Stash the event so it can be triggered later
+          deferredPrompt = e;
+
+          // Show the prompt on page load
+          window.addEventListener('load', () => {
+              showInstallPrompt();
+          });
+
+          // Show the prompt on scroll
+          window.addEventListener('scroll', () => {
+              showInstallPrompt();
+              // Remove the scroll event listener after showing the prompt
+              window.removeEventListener('scroll', arguments.callee);
+          }, { once: true }); // Ensure the listener is removed after first scroll
+      });
+
+      // Handle app installation event
+      window.addEventListener('appinstalled', (event) => {
+          console.log('App was installed.');
+      });
+  </script>
+
       
     </body>
   </html>
