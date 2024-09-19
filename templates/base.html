@@ -2,6 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    {% load pwa %}
+    {% progressive_web_app_meta %}
+    <link rel="manifest" href="{% static 'manifest.json' %}">
   <head>
     <title>{{ title }} - Spice-EX</title>
     <meta charset="utf-8">
@@ -38,17 +41,7 @@
     <!-- Vendor Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-    <!-- Service Worker registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register("{% static 'service-worker.js' %}")
-            .then(function(registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-            }).catch(function(error) {
-            console.log('Service Worker registration failed:', error);
-            });
-        }
-    </script>
+  
   
 
 
@@ -283,83 +276,6 @@
             });
         });
     </script>
-
-    <script>
-        let deferredPrompt;
-    
-        // Function to show the install prompt
-        function showInstallPrompt() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    } else {
-                        console.log('User dismissed the install prompt');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-    
-        // Listen for the beforeinstallprompt event
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing
-            e.preventDefault();
-            // Stash the event so it can be triggered later
-            deferredPrompt = e;
-    
-            // Show the prompt on page load
-            window.addEventListener('load', () => {
-                showInstallPrompt();
-            });
-    
-            // Show the prompt on scroll
-            window.addEventListener('scroll', () => {
-                showInstallPrompt();
-                // Remove the scroll event listener after showing the prompt
-                window.removeEventListener('scroll', arguments.callee);
-            }, { once: true });
-        });
-    
-        // Handle app installation event
-        window.addEventListener('appinstalled', (event) => {
-            console.log('App was installed.');
-        });
-    
-        // Wait for the DOM content to load before manipulating elements
-        document.addEventListener('DOMContentLoaded', () => {
-            // Replace deprecated DOMNodeRemoved with MutationObserver
-            const targetNode = document.getElementById('yourElement');  // Replace 'yourElement' with the actual element ID
-            if (targetNode) {
-                const observer = new MutationObserver((mutationsList) => {
-                    for (let mutation of mutationsList) {
-                        if (mutation.type === 'childList') {
-                            console.log('A child node has been added or removed.');
-                        }
-                    }
-                });
-                observer.observe(targetNode, { childList: true });
-            }
-    
-            // Ensure event listener is added to an existing element
-            const element = document.getElementById('someElement');  // Replace 'someElement' with the actual element ID
-            if (element) {
-                element.addEventListener('click', () => {
-                    console.log('Element clicked!');
-                });
-            }
-        });
-    
-        // Fix for potential error related to the 'arguments' object
-        window.addEventListener('load', () => {
-            const installButton = document.getElementById('installButton'); // Replace 'installButton' with actual button ID
-            if (installButton) {
-                installButton.addEventListener('click', showInstallPrompt);
-            }
-        });
-    </script>
-    
 
       
     </body>
