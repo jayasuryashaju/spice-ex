@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js/serviceworker.js')
+# PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js/serviceworker.js')
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-lte0!a2d+-x311cfm(0437&91w%b4#-sjdq7#75c=_==hltgk)')
 

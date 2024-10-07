@@ -352,3 +352,30 @@ footer a {
 
 
 
+footer .footer-content{
+    background-color: rgb(249, 249, 249);
+    border-radius: 50px;
+}
+
+.footer-content a{
+ 
+    color: var(--cardamom-accent) !important;
+}
+
+.footer-content p{
+ 
+    color: var(--cardamom-accent) !important;
+}
+
+.footer-content i{
+ 
+    color:var(--cardamom-accent) !important;
+}
+
+.breadcrumbs span{
+    color: var(--cardamom-text) !important;
+}
+
+.breadcrumbs a{
+    color: var(--cardamom-text) !important;
+}

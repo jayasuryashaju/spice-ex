@@ -59,9 +59,7 @@ AOS.init({
    };
    loader();
 
-   // Scrollax
-  $.Scrollax();
-
+  
    var carousel = function() {
        $('.home-slider').owlCarousel({
        loop:true,

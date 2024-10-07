@@ -7,7 +7,7 @@
     <link rel="manifest" href="{% static 'manifest.json' %}">
   <head>
 
-    <title>{{ title }} - Spice-EX</title>
+    <title>{{ title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -62,7 +62,11 @@
     </style>
   </head>
 
-  <body class="goto-here" style="background-image: url('{% static 'images/bg_2.jpg' %}'); ">
+  <!-- <body class="goto-here" style="background-image: url('{% static 'images/bg.gif' %}'); ">  -->
+  <body class="goto-here" >
+
+
+  <!-- <body class="goto-here" > -->
 
     <!-- Loading Screen -->
     <div id="loading-screen" style="position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center;">
@@ -100,35 +104,35 @@
         </div> -->
     <nav class="navbar navbar-expand-lg  ftco_navbar ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="{% url 'store:home' %}">
-          {% if site_info.logo %}
-              <img src="{{ site_info.logo.url }}" alt="{{ site_info.site_name }}" style="max-height: 50px;">
-          {% else %}
-              {{ site_info.site_name }}
-              <p>SPICE-EX</p>
-          {% endif %}
-      </a>
+            <a class="navbar-brand" href="{% url 'store:home' %}">
+                {% if site_info.logo %}
+                    <img src="{{ site_info.logo.url }}" alt="{{ site_info.site_name }}" style="max-height: 50px;">
+                {% else %}
+                    {{ site_info.site_name }}
+                    <p>SPICE-EX</p>
+                {% endif %}
+            </a>
       
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span>
-    </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+            </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-              {% for category in categories %}
-                  {% if category.is_featured %}
-                      <li class="nav-item">
-                          <a href="{{ category.get_absolute_url }}" class="nav-link">{{ category.name }}</a>
-                      </li>
-                  {% endif %}
-              {% endfor %}
-              <li class="nav-item"><a href="{% url 'store:about' %}" class="nav-link">About</a></li>
-              <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
-          </ul>
-      </div>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    {% for category in categories %}
+                        {% if category.is_featured %}
+                            <li class="nav-item">
+                                <a href="{{ category.get_absolute_url }}" class="nav-link">{{ category.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="nav-item"><a href="{% url 'store:about' %}" class="nav-link">About</a></li>
+                    <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
+                </ul>
+            </div>
       
 	    </div>
-	  </nav>
+	</nav>
     <!-- END nav -->
 
     <!-- START content -->
@@ -157,11 +161,19 @@
                           </a>
                       </div>
             </div>
-          <div class="row">
-            <div class="footer-contact col-md-4">
+          <div class="row footer-content p-4">
+            
+            <div class="footer-contact col-md-4 ">
               {% if site_info %}
-              <h2>{{ site_info.site_name }}</h2>
-              <p>
+                <a   href="{% url 'store:home' %}"></a>
+                    {% if site_info.logo %}
+                        <img src="{{ site_info.logo.url }}" alt="{{ site_info.site_name }}" style="max-height: 50px;">
+                    {% else %}
+                        {{ site_info.site_name }}
+                        <p>SPICE-EX</p>
+                    {% endif %}
+                    </a>
+              <p class="mt-4">
                   {{ site_info.addresses.first.address|linebreaksbr }} <!-- This will break the address into multiple lines -->
               </p>
               {% endif %}
@@ -173,7 +185,7 @@
                       <span style="font-size: 20px; color: #25D366; margin-right: 8px;">
                           <i class="fab fa-whatsapp"></i>
                       </span>
-                      <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}" style="color: #ffffff; text-decoration: none;">
+                      <a href="https://wa.me/{{ whatsapp_number.whatsapp_phone_number }}" style=" text-decoration: none;">
                           {{ whatsapp_number.whatsapp_phone_number }}
                       </a>
                   </li>
@@ -182,10 +194,10 @@
                   <!-- Phone Numbers -->
                   {% for phone_number in phone_numbers %}
                   <li style="display: flex; align-items: center; margin-bottom: 10px;">
-                      <span style="font-size: 20px; color: #ffffff; margin-right: 8px;">
+                      <span style="font-size: 20px; margin-right: 8px;">
                           <i class="fa fa-phone"></i>
                       </span>
-                      <a href="tel:{{ phone_number.phone_number }}" style="color: #ffffff; text-decoration: none;">
+                      <a href="tel:{{ phone_number.phone_number }}" style="text-decoration: none;">
                           {{ phone_number.phone_number }}
                       </a>
                   </li>
@@ -193,11 +205,11 @@
           
                   <!-- Emails -->
                   {% for email in emails %}
-                  <li style="display: flex; align-items: center; margin-bottom: 10px;">
-                      <span style="font-size: 20px; color: #ffffff; margin-right: 8px;">
+                  <li style=" display: flex; align-items: center; margin-bottom: 10px;">
+                      <span style=" font-size: 20px;  margin-right: 8px;">
                           <i class="fa fa-envelope"></i>
                       </span>
-                      <a href="mailto:{{ email.email }}" style="color: #ffffff; text-decoration: none;">
+                      <a href="mailto:{{ email.email }}" style=" text-decoration: none;">
                           {{ email.email }}
                       </a>
                   </li>
@@ -208,7 +220,7 @@
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                   {% for social_link in social_links %}
                   <li class="ftco-animate" style="display: inline-block; margin-right: 10px;">
-                      <a href="{{ social_link.url }}" style="color: #ffffff;">
+                      <a href="{{ social_link.url }}" >
                           <span class="icon-{{ social_link.name }}"></span>
                       </a>
                   </li>

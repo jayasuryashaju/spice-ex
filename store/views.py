@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 
 def home(request):
-    title = "Home"
+    title = "Spice-EX"
     banners = Banner.objects.all()
 
     context = {
